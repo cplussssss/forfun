@@ -1,0 +1,109 @@
+<?php require_once "header.php" ?>
+<style>
+    .question-block {
+        margin-bottom: 20px;
+    }
+</style>
+<title>回答問題得正確率</title>
+<div class="content">
+  <div id="question1" class="question-block">
+    <p class="question-title">問題 1: 你喜歡哪一種顏色？</p>
+    <div class="answer-options">
+      <label><input type="radio" name="question1" value="red" onclick="checkAnswer(1, 'blue')"> 紅色</label>
+      <label><input type="radio" name="question1" value="blue" onclick="checkAnswer(1, 'blue')"> 藍色</label>
+      <label><input type="radio" name="question1" value="green" onclick="checkAnswer(1, 'blue')"> 綠色</label>
+    </div>
+  </div>
+
+  <div id="question2" class="question-block" style="display:none;">
+    <p class="question-title">問題 2: 你最喜歡的季節是什麼？</p>
+    <div class="answer-options">
+      <label><input type="radio" name="question2" value="spring" onclick="checkAnswer(2, 'summer')"> 春天</label>
+      <label><input type="radio" name="question2" value="summer" onclick="checkAnswer(2, 'summer')"> 夏天</label>
+      <label><input type="radio" name="question2" value="autumn" onclick="checkAnswer(2, 'summer')"> 秋天</label>
+      <label><input type="radio" name="question2" value="winter" onclick="checkAnswer(2, 'summer')"> 冬天</label>
+    </div>
+  </div>
+
+  <div id="question3" class="question-block" style="display:none;">
+    <p class="question-title">問題 3: 你最喜歡的運動是什麼？</p>
+    <div class="answer-options">
+      <label><input type="radio" name="question3" value="soccer" onclick="checkAnswer(3, 'basketball')"> 足球</label>
+      <label><input type="radio" name="question3" value="basketball" onclick="checkAnswer(3, 'basketball')"> 籃球</label>
+      <label><input type="radio" name="question3" value="tennis" onclick="checkAnswer(3, 'basketball')"> 網球</label>
+    </div>
+  </div>
+
+  <!-- 提交結果按鈕 -->
+  <div id="submit-button" class="question-block" style="display:none;">
+    <button onclick="submitQuiz()">提交測驗</button>
+  </div>
+
+  <!-- 顯示結果和重新測驗按鈕 -->
+  <div id="result-section" class="question-block" style="display:none;">
+    <p id="result-message"></p>
+    <button onclick="resetQuiz()">重新測驗</button>
+  </div>
+</div>  
+
+<script>
+  let correctAnswers = 0;  // 用來計算正確答案的數量
+
+  // 檢查用戶的答案
+  function checkAnswer(questionNumber, correctOption) {
+    const selectedOption = document.querySelector(`input[name="question${questionNumber}"]:checked`);
+    
+    // 如果選擇的選項是正確的，則增加正確數量
+    if (selectedOption && selectedOption.value === correctOption) {
+      correctAnswers++;
+    }
+    
+    // 顯示下一個問題
+    if (questionNumber < 3) {
+      showNextQuestion(questionNumber + 1);
+    } else {
+      // 當第三題答完後，顯示提交按鈕
+      document.getElementById('submit-button').style.display = 'block';
+    }
+  }
+
+  // 顯示下一個問題
+  function showNextQuestion(questionNumber) {
+    document.getElementById('question' + questionNumber).style.display = 'block';
+  }
+
+  // 提交測驗，顯示正確率
+  function submitQuiz() {
+    const totalQuestions = 3;
+    const accuracy = (correctAnswers / totalQuestions) * 100;
+    
+    // 顯示結果和重新測驗按鈕
+    const resultMessage = `你答對了 ${correctAnswers} 題，正確率是 ${accuracy}%`;
+    document.getElementById('result-message').textContent = resultMessage;
+    
+    // 隱藏問題區塊，顯示結果區塊
+    document.getElementById('submit-button').style.display = 'none';
+    document.getElementById('result-section').style.display = 'block';
+  }
+
+  function resetQuiz() {
+    correctAnswers = 0;
+    
+    // 隱藏結果區塊和重新測驗按鈕
+    document.getElementById('result-section').style.display = 'none';
+    
+    // 隱藏所有問題區塊
+    for (let i = 1; i <= 3; i++) {
+        document.getElementById('question' + i).style.display = 'none';
+    }
+
+    // 顯示第一個問題並重置所有選擇
+    document.getElementById('question1').style.display = 'block';
+    const radios = document.querySelectorAll('input[type="radio"]');
+    radios.forEach(radio => radio.checked = false);
+
+    // 隱藏提交按鈕，因為我們還沒開始重新提交測驗
+    document.getElementById('submit-button').style.display = 'none';
+}
+
+</script>
