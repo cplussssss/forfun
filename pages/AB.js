@@ -34,7 +34,7 @@ function updateHistory(guess, aCount, bCount) {
 // 檢查玩家的猜測
 function checkGuess() {
     // 當猜測次數達到15次，顯示提示並禁用輸入
-    if (attempts >= 15) {
+    if (attempts >= 20) {
         document.getElementById("result").innerText = `作答次數已達上限，正確答案是：${correctNumber}。請再接再厲！`;
         document.getElementById("guess").disabled = true; // 禁用輸入框
         document.querySelector("button").disabled = true; // 禁用猜測按鈕
