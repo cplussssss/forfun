@@ -30,7 +30,7 @@
     <!-- Links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="home.php">C+'s Whimsical Corner</a>
+        <a class="nav-link" href="index.html">C+'s Whimsical Corner</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="question.php" >Q</a>
