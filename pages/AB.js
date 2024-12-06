@@ -72,7 +72,7 @@ function checkGuess() {
     //更新答題歷史
     updateHistory(guess, aCount, bCount);
 
-    
+
 }
 
 // 處理按下 Enter 鍵的事件
