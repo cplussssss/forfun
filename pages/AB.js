@@ -33,7 +33,7 @@ function updateHistory(guess, aCount, bCount) {
 
 // 檢查玩家的猜測
 function checkGuess() {
-    // 當猜測次數達到15次，顯示提示並禁用輸入
+    // 當猜測次數達到XX次，顯示提示並禁用輸入
     if (attempts >= 20) {
         document.getElementById("result").innerText = `作答次數已達上限，正確答案是：${correctNumber}。請再接再厲！`;
         document.getElementById("guess").disabled = true; // 禁用輸入框
@@ -71,7 +71,7 @@ function checkGuess() {
     }
     //更新答題歷史
     updateHistory(guess, aCount, bCount);
-
+    document.getElementById("guess").value='';
 
 }
 
@@ -81,8 +81,10 @@ document.getElementById("guess").addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         event.preventDefault();  // 防止表單提交
         checkGuess();  // 執行猜測
+        
     }
 });
+
 
 // 重新開始遊戲
 function restartGame() {
@@ -102,4 +104,72 @@ function restartGame() {
     document.getElementById("restartButton").style.display = "none";  // 隱藏重新開始按鈕
     */
 }
+
+//中間數字按鈕
+let selectedPattern = null; // 當前選擇的圖案
+const optionX = document.getElementById('option-x');
+const optionO = document.getElementById('option-o');
+const optionClear = document.getElementById('option-/');
+const buttons = [optionX, optionO, optionClear];
+const numbers = document.querySelectorAll('.number');
+
+// 選擇圖案按鈕邏輯
+function selectPattern(button, pattern) {
+    if (button.classList.contains('selected')) {
+        // 如果該按鈕已經選中，再次點擊時取消選擇
+        button.classList.remove('selected');
+        selectedPattern = null; // 清除當前選擇的圖案
+    } else {
+        // 如果該按鈕沒有被選中，選擇該按鈕
+        buttons.forEach(btn => btn.classList.remove('selected')); // 清除其他按鈕的選中狀態
+        button.classList.add('selected'); // 標記當前按鈕為選中
+        selectedPattern = pattern; // 設置當前選擇的圖案
+    }
+}
+
+// 點擊 X 按鈕
+optionX.addEventListener('click', () => {
+    selectPattern(optionX, 'X');
+});
+
+// 點擊 O 按鈕
+optionO.addEventListener('click', () => {
+    selectPattern(optionO, 'O');
+});
+
+// 點擊 / 按鈕
+optionClear.addEventListener('click', () => {
+    selectPattern(optionClear, null); // 選擇清除模式
+});
+
+// 點擊數字邏輯
+numbers.forEach(number => {
+    number.addEventListener('click', () => {
+        const patternElement = number.querySelector('.pattern');
+
+        if (selectedPattern === null) {
+            // 如果選擇的是清除模式
+            number.className = 'number'; // 重置樣式
+            if (patternElement) number.removeChild(patternElement); // 移除圖案
+            return;
+        }
+
+        // 如果選擇的是圖案模式
+        if (patternElement) {
+            patternElement.textContent = selectedPattern; // 覆蓋圖案
+        } else {
+            const newPattern = document.createElement('div');
+            newPattern.classList.add('pattern');
+            newPattern.textContent = selectedPattern;
+            number.appendChild(newPattern); // 添加新圖案
+        }
+
+        // 根據圖案更新背景色
+        if (selectedPattern === 'X') {
+            number.className = 'number x';
+        } else if (selectedPattern === 'O') {
+            number.className = 'number o';
+        }
+    });
+});
 

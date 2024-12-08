@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/51eb70003d.js" crossorigin="anonymous"></script>
+    <title>數字變換</title>
+    <style>
+        .number-box {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+            margin-bottom: 20px;
+        }
+        .number {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f4;
+            font-size: 24px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            position: relative;  /* 使數字能作為參照點 */
+            transition: background-color 0.3s ease;
+        }
+        .number.x {
+            background-color: #add8e6; /* 藍色背景 */
+        }
+        .number.o {
+            background-color: #ffa07a; /* 橘色背景 */
+        }
+        .pattern {
+            position: absolute;
+            font-size: 50px;
+            left: 50%;  /* 水平居中對齊 */
+            transform: translateX(-50%);  /* 完全居中 */
+        }
+        .options button {
+            margin: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .options button.selected {
+            background-color: #ccc; /* 被選擇的按鈕變色 */
+        }
+    </style>
+</head>
+<body>
+
+    <h2>選擇圖案並顯示在數字上</h2>
+
+    <div class="number-box">
+        <!-- 顯示數字 1-9 -->
+        <div class="number" data-number="1">1</div>
+        <div class="number" data-number="2">2</div>
+        <div class="number" data-number="3">3</div>
+        <div class="number" data-number="4">4</div>
+        <div class="number" data-number="5">5</div>
+        <div class="number" data-number="6">6</div>
+        <div class="number" data-number="7">7</div>
+        <div class="number" data-number="8">8</div>
+        <div class="number" data-number="9">9</div>
+    </div>
+
+    <!-- 選擇圖案 -->
+    <div class="options">
+        <button class="fa-solid fa-x" id="option-x"></button>
+        <button class="fa-solid fa-o" id="option-o"></button>
+        <button id="option-clear">/</button>
+    </div>
+
+    <script>
+        let selectedPattern = null; // 當前選擇的圖案
+        const optionX = document.getElementById('option-x');
+        const optionO = document.getElementById('option-o');
+        const optionClear = document.getElementById('option-clear');
+        const buttons = [optionX, optionO, optionClear];
+        const numbers = document.querySelectorAll('.number');
+
+        // 選擇圖案按鈕邏輯
+        function selectPattern(button, pattern) {
+            buttons.forEach(btn => btn.classList.remove('selected')); // 清除其他按鈕的選中狀態
+            button.classList.add('selected'); // 標記當前按鈕為選中
+            selectedPattern = pattern; // 設置當前選擇的圖案
+        }
+
+        // 點擊 X 按鈕
+        optionX.addEventListener('click', () => {
+            selectPattern(optionX, 'X');
+        });
+
+        // 點擊 O 按鈕
+        optionO.addEventListener('click', () => {
+            selectPattern(optionO, 'O');
+        });
+
+        // 點擊 / 按鈕
+        optionClear.addEventListener('click', () => {
+            selectPattern(optionClear, null); // 選擇清除模式
+        });
+
+        // 點擊數字邏輯
+        numbers.forEach(number => {
+            number.addEventListener('click', () => {
+                const patternElement = number.querySelector('.pattern');
+
+                if (selectedPattern === null) {
+                    // 如果選擇的是清除模式
+                    number.className = 'number'; // 重置樣式
+                    if (patternElement) number.removeChild(patternElement); // 移除圖案
+                    return;
+                }
+
+                // 如果選擇的是圖案模式
+                if (patternElement) {
+                    patternElement.textContent = selectedPattern; // 覆蓋圖案
+                } else {
+                    const newPattern = document.createElement('div');
+                    newPattern.classList.add('pattern');
+                    newPattern.textContent = selectedPattern;
+                    number.appendChild(newPattern); // 添加新圖案
+                }
+
+                // 根據圖案更新背景色
+                if (selectedPattern === 'X') {
+                    number.className = 'number x';
+                } else if (selectedPattern === 'O') {
+                    number.className = 'number o';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

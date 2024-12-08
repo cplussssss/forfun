@@ -1,0 +1,135 @@
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+@media (max-width: 768px) {
+    .game-container, .history-container, .number-box {
+        margin-bottom: 15px;
+    }
+
+    .options button {
+        font-size: 14px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .number {
+        width: 30%;
+    }
+}
+body {
+    font-family: 'Noto Sans TC', sans-serif,Arial;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.container.content {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.game-container{
+    display:flex;
+    justify-content: center;
+    flex-direction: column;  /* 確保所有子元素在縱向顯示 */
+    align-items: center;
+}
+.result {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.number_text {
+    height: 100px;
+    width: 300px;
+    padding: 5px;
+    font-size: 30px;
+    margin-top: 10px;
+    border-radius: 50%;
+    text-align: center;
+}
+.check_button {
+    width: 100px;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.check_button:hover{
+    background-color: #FFCBCB;
+}
+.history-item {
+    font-size: 18px;           /* 初始文字大小 */
+    font-family: Arial, sans-serif;  /* 字型 */
+    color: #333;               /* 字體顏色 */
+    background-color: #f4f4f4; /* 背景顏色 */
+    padding: 5px;              /* 內邊距 */
+    margin: 5px 0;             /* 外邊距 */
+    border-radius: 5px;        /* 邊角圓滑 */
+    transition: transform 1s, font-size 0.05s;  /* 使變大和變小的過渡效果平滑 */
+    }
+.history-item:hover{
+    font-size: 25px;
+    transform: scale(1,1);
+}
+
+/*中間的按鈕*/
+.number-box {
+    display: flex;                /* 使用 flex 佈局 */
+    flex-wrap: wrap;              /* 允許換行 */
+    justify-content: space-between;  /* 均勻分佈數字 */
+    margin-bottom: 10px;
+}
+.number:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 設置陰影效果 */
+    transition: box-shadow 0.3s ease-in-out;  /* 使陰影過渡平滑 */
+}
+
+.number {
+    width: 30%;                   /* 設置每個數字佔 30% 的寬度，保證每行能顯示三個數字 */
+    text-align: center;           /* 數字居中顯示 */
+    margin-bottom: 10px;          /* 設置數字間的間距 */
+    font-size: 20px;              /* 設置數字的字體大小 */
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;  /* 使數字能作為參照點 */
+    transition: background-color 0.3s ease;
+}
+
+.options {
+    display: flex;                /* 使用 flex 佈局 */
+    justify-content: space-between; /* 均勻分佈按鈕 */
+    margin-top: 5px;              /* 調整與數字區域的間距 */             
+}
+.options button {
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 35px;
+    height: 35px;
+}
+
+/* 在未選擇的狀態下顯示 hover 效果 */
+.options button:not(.selected):hover {
+    background-color: #f0f0f0; /* 背景顏色改變，表示 hover 狀態 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加陰影效果 */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;  /* 平滑過渡 */
+}
+.options button.selected {
+    background-color: #ccc; /* 被選擇的按鈕變色 */
+}
+
+.number.x {
+    background-color: #add8e6; /* 藍色背景 */
+}
+.number.o {
+    background-color: #ffa07a; /* 橘色背景 */
+}
+.pattern {
+    position: absolute;
+    font-size: 30px;
+    left: 50%;  /* 水平居中對齊 */
+    transform: translateX(-50%);  /* 完全居中 */
+}
+
