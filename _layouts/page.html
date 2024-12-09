@@ -29,9 +29,50 @@
         }
 
         .content {
-            padding-top: 40px;
-            /* 避免被固定導航條遮擋 */
+            padding-top: 40px; /* 避免被固定導航條遮擋 */
         }
+
+        /* 桌面視圖 */
+        @media (min-width: 1200px) {
+            .navbar-nav {
+                display: flex; /* 導航項目水平排列 */
+            }
+
+            .navbar-collapse {
+                justify-content: flex-end;
+            }
+        }
+
+        /* 平板視圖 */
+        @media (max-width: 991px) {
+            .navbar-nav {
+                display: flex; /* 導航項目水平排列 */
+            }
+
+            .navbar-collapse {
+                justify-content: flex-end;
+            }
+        }
+
+        /* 手機視圖 */
+        @media (max-width: 575px) {
+            .navbar-nav {
+                text-align: center; /* 導航項目垂直排列 */
+            }
+
+            .navbar-toggler {
+                display: block;
+            }
+
+            .navbar-collapse {
+                text-align: center;
+            }
+
+            .navbar-collapse.collapse {
+                display: block !important;
+            }
+        }
+
     </style>
     <title>{{ site.title }}</title>
 </head>
@@ -41,20 +82,29 @@
     <!-- 固定導航欄 -->
     <nav class="navbar navbar-expand-sm navbar-dark">
         <div class="container-fluid">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ 'firstindex.html' | relative_url }}">C+'s Whimsical Corner</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ 'question.html' | relative_url }} ">Q</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ 'AB.html' | relative_url }}">AB</a>
-                </li>
-            </ul>
+            <!-- 漢堡選單按鈕（手機和平板） -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- 導航項目 -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto"> <!-- ms-auto 用來把項目推到右邊 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ 'firstindex.html' | relative_url }}">C+'s Whimsical Corner</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ 'question.html' | relative_url }} ">Q</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ 'AB.html' | relative_url }}">AB</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
-<!--{{ site.baseurl }}/AB.html-->
+
     <!-- 主要內容區域 -->
     <div class="content">
         <main>
