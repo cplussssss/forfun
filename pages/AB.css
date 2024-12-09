@@ -76,9 +76,14 @@ body {
     justify-content: space-between;  /* 均勻分佈數字 */
     margin-bottom: 10px;
 }
-.number:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 設置陰影效果 */
+.number:not(.x):not(.o):not(.clear):hover {
+    box-shadow: 0 4px 8px #997C70; /* 設置陰影效果 */
     transition: box-shadow 0.3s ease-in-out;  /* 使陰影過渡平滑 */
+}
+
+/* 數字按鈕已選中（顯示 X、O 或 /）時，顯示選中後的 hover 效果 */
+.number.x:hover, .number.o:hover, .number.clear:hover {
+    box-shadow: none;/* 顯示不同的陰影效果 */
 }
 
 .number {
@@ -112,7 +117,7 @@ body {
 
 /* 在未選擇的狀態下顯示 hover 效果 */
 .options button:not(.selected):hover {
-    background-color: #f0f0f0; /* 背景顏色改變，表示 hover 狀態 */
+    background-color:#F8FAFC; /* 背景顏色改變，表示 hover 狀態 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加陰影效果 */
     transition: background-color 0.3s ease, box-shadow 0.3s ease;  /* 平滑過渡 */
 }
@@ -131,5 +136,39 @@ body {
     font-size: 30px;
     left: 50%;  /* 水平居中對齊 */
     transform: translateX(-50%);  /* 完全居中 */
+}
+/*煙火*/
+#fireworks-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;  /* 確保煙火容器在最上層 */
+}
+
+.firework {
+    position: absolute;
+    width: 20px;  /* 增加煙火的大小 */
+    height: 20px;
+    border-radius: 50%;
+    z-index: 10000;
+    animation: firework-animation 2s ease-out forwards; /* 增加動畫時間為 2 秒 */
+}
+
+@keyframes firework-animation {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(5);  /* 擴展更大 */
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(15);  /* 擴展到更大 */
+        opacity: 0;
+    }
 }
 

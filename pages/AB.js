@@ -30,6 +30,34 @@ function updateHistory(guess, aCount, bCount) {
     // 滾動至最底部
     historyContainer.scrollTop = historyContainer.scrollHeight;
 }
+function showFireworks() {
+    const container = document.createElement('div');
+    container.id = 'fireworks-container';  // 用來顯示煙火效果的容器
+    document.body.appendChild(container);  // 把容器添加到頁面中
+
+    // 創建 50 個煙火點，模擬煙火效果
+    for (let i = 0; i < 50; i++) {
+        const firework = document.createElement('div');
+        firework.classList.add('firework');
+        firework.style.left = `${Math.random() * 100}%`;
+        firework.style.top = `${Math.random() * 100}%`;
+
+        // 隨機生成煙火的顏色
+        firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+
+        container.appendChild(firework);
+
+        // 在動畫結束後移除煙火點
+        setTimeout(() => {
+            firework.remove();
+        }, 2000);
+    }
+    // 煙火動畫結束後隱藏煙火容器
+    setTimeout(() => {
+        container.remove();
+    }, 2000);
+}
+
 
 // 檢查玩家的猜測
 function checkGuess() {
@@ -64,6 +92,8 @@ function checkGuess() {
 
     // 如果猜對了
     if (aCount === 4) {
+        console.log("猜對了，觸發煙火");
+        showFireworks(); 
         document.getElementById("result").innerHTML = `恭喜你猜對了！正確答案是：${correctNumber} <br> 你使用了：${attempts} 次`;
         document.getElementById("guess").disabled = true; // 禁用輸入框
         document.querySelector("button").disabled = true; // 禁用猜測按鈕
@@ -172,4 +202,5 @@ numbers.forEach(number => {
         }
     });
 });
+
 

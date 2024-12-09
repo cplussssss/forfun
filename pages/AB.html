@@ -15,7 +15,7 @@ permalink: /AB
                 <input class="number_text" type="text" id="guess" maxlength="4" placeholder="輸入四位數字" >
                 <button class="check_button" type="button" onclick="checkGuess()">猜測</button> <!-- type="button" 防止表單提交 -->
             </div>
-            <div class="col-lg-2 col-md-4 col-12 d-flex flex-column mt-5" style="height: 100%;">
+            <div class="col-lg-2 col-md-4 col-12 d-flex flex-column" style="height: 100%;">
                 <!-- 顯示數字 1-9，佔 70% 高度 -->
                 <div class="number-box d-flex flex-wrap justify-content-between" style="flex-grow: 7; height: 70%; margin-bottom: 10px;">
                     <div class="number" data-number="1">1</div>
@@ -41,6 +41,8 @@ permalink: /AB
                 <div class="mt-3 d-flex justify-content-center"><h3>答題歷史</h3></div>
             </div>
         </div>
+        <div id="fireworks-container"></div> <!-- 用來顯示煙火效果的容器 -->
+
     </div>
 
     <div class="result" id="result"></div>
