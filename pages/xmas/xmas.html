@@ -143,8 +143,7 @@
             width: 200px;
             height: 200px;
             animation: moveReindeer 7s ease-in-out;
-            background: url('{{ site.baseurl }}/pages/xmas/deer.png') no-repeat center center / contain;
-
+            background: url('{{ site.baseurl }}/deer.png') no-repeat center center / contain;
             z-index: 100; /* Ensure it is on top of other elements */
             cursor: pointer;
         }
@@ -312,14 +311,14 @@
         }
 
         function createReindeer() {
-            const reindeerImages = ['{{ site.baseurl }}/pages/xmas/deer.png', '{{ site.baseurl }}/pages/xmas/deer2.png', '{{ site.baseurl }}/pages/xmas/deer3.png'];
+            const reindeerImages = ['{{ site.baseurl }}/deer.png', '{{ site.baseurl }}/deer2.png', '{{ site.baseurl }}/deer3.png'];
             const selectedImage = reindeerImages[Math.floor(Math.random() * reindeerImages.length)];
 
             const reindeer = document.createElement('div');
             reindeer.classList.add('reindeer');
             reindeer.style.backgroundImage = `url('${selectedImage}')`;
             reindeer.addEventListener('click', () => {
-                window.location.href = 'fireplace.html';
+                window.location.href = '{{ site.baseurl }}/fireplace.html';
             });
             document.body.appendChild(reindeer);
 
