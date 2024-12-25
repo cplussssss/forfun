@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Tree</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(to bottom, #00416A, #E4E5E6);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .tree {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .tree-part {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: green;
+            border-radius: 0;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .tree-part:nth-child(2) {
+            width: 40px;
+            height: 30px;
+            top: 10px;
+            z-index: 2;
+        }
+
+        .tree-part:nth-child(3) {
+            width: 80px;
+            height: 40px;
+            top: 40px;
+        }
+
+        .tree-part:nth-child(4) {
+            width: 120px;
+            height: 50px;
+            top: 80px;
+        }
+
+        .tree-part:nth-child(5) {
+            width: 160px;
+            height: 50px;
+            top: 130px;
+        }
+
+        .tree-part:nth-child(6) {
+            width: 200px;
+            height: 70px;
+            top: 180px;
+        }
+
+        .tree-part:nth-child(7) {
+            width: 50px;
+            height: 60px;
+            background-color: brown;
+            top: 250px;
+        }
+
+        .star {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: yellow;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            z-index: 3;
+        }
+
+        .message {
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px #000;
+            opacity: 0;
+            animation: fadeMessage 2s ease-in-out forwards;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                transform: translateX(-50%) scale(1.1);
+            }
+        }
+
+        .bounce {
+            animation: bounce 0.3s ease;
+        }
+
+        .soundcloud {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 90%;
+            max-width: 300px;
+            height: 80px;
+            border: none;
+            z-index: 10;
+        }
+
+        .reindeer {
+            position: absolute;
+            top: -150px;
+            right: -150px;
+            width: 200px;
+            height: 200px;
+            animation: moveReindeer 7s ease-in-out;
+            background: url('{{ site.baseurl }}/pages/xmas/deer.png') no-repeat center center / contain;
+
+            z-index: 100; /* Ensure it is on top of other elements */
+            cursor: pointer;
+        }
+
+        @keyframes fadeMessage {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes moveReindeer {
+            0% {
+                top: -150px;
+                right: -150px;
+                transform: rotate(0deg);
+            }
+            50% {
+                top: 50%;
+                right: 50%;
+                transform: rotate(360deg);
+            }
+            100% {
+                top: 100%;
+                right: 100%;
+                transform: rotate(720deg);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .tree-part {
+                width: 75%;
+                height: auto;
+                top: unset;
+            }
+
+            .tree-part:nth-child(2) {
+                width: 30px;
+                height: 20px;
+                top: 10px;
+            }
+
+            .tree-part:nth-child(3) {
+                width: 60px;
+                height: 30px;
+                top: 30px;
+            }
+
+            .tree-part:nth-child(4) {
+                width: 90px;
+                height: 40px;
+                top: 70px;
+            }
+
+            .tree-part:nth-child(5) {
+                width: 120px;
+                height: 50px;
+                top: 120px;
+            }
+
+            .tree-part:nth-child(6) {
+                width: 150px;
+                height: 60px;
+                top: 180px;
+            }
+
+            .tree-part:nth-child(7) {
+                width: 40px;
+                height: 50px;
+                top: 250px;
+            }
+
+            .star {
+                width: 20px;
+                height: 20px;
+                top: -20px;
+            }
+
+            .message {
+                font-size: 20px;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .tree-part {
+                width: 90%;
+                height: auto;
+                top: unset;
+            }
+
+            .tree-part:nth-child(2) {
+                width: 25px;
+                height: 15px;
+                top: 8px;
+            }
+
+            .tree-part:nth-child(3) {
+                width: 50px;
+                height: 25px;
+                top: 30px;
+            }
+
+            .tree-part:nth-child(4) {
+                width: 75px;
+                height: 35px;
+                top: 70px;
+            }
+
+            .tree-part:nth-child(5) {
+                width: 100px;
+                height: 40px;
+                top: 120px;
+            }
+
+            .tree-part:nth-child(6) {
+                width: 125px;
+                height: 50px;
+                top: 180px;
+            }
+
+            .tree-part:nth-child(7) {
+                width: 35px;
+                height: 45px;
+                top: 250px;
+            }
+
+            .star {
+                width: 15px;
+                height: 15px;
+                top: -15px;
+            }
+
+            .message {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <iframe class="soundcloud" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/user-480420489/sets/christmas-playlist&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=false"></iframe>
+    <div class="tree" onclick="bounceTree(); createReindeer();">
+        <div class="star"></div>
+        <div class="tree-part"></div>
+        <div class="tree-part"></div>
+        <div class="tree-part"></div>
+        <div class="tree-part"></div>
+        <div class="tree-part"></div>
+        <div class="tree-part"></div>
+    </div>
+
+    <script>
+        function bounceTree() {
+            const treeParts = document.querySelectorAll('.tree-part, .star');
+            treeParts.forEach(part => {
+                part.classList.add('bounce');
+                part.addEventListener('animationend', () => {
+                    part.classList.remove('bounce');
+                }, { once: true });
+            });
+        }
+
+        function createReindeer() {
+            const reindeerImages = ['{{ site.baseurl }}/pages/xmas/deer.png', '{{ site.baseurl }}/pages/xmas/deer2.png', '{{ site.baseurl }}/pages/xmas/deer3.png'];
+            const selectedImage = reindeerImages[Math.floor(Math.random() * reindeerImages.length)];
+
+            const reindeer = document.createElement('div');
+            reindeer.classList.add('reindeer');
+            reindeer.style.backgroundImage = `url('${selectedImage}')`;
+            reindeer.addEventListener('click', () => {
+                window.location.href = 'fireplace.html';
+            });
+            document.body.appendChild(reindeer);
+
+            reindeer.addEventListener('animationend', () => {
+                displayMessage();
+                reindeer.remove();
+            });
+        }
+
+        function displayMessage() {
+            const messages = ["Merry Christmas", "Best of luck on your final exams!", "You won't be alone."];
+            const message = messages[Math.floor(Math.random() * messages.length)];
+
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.textContent = message;
+            document.body.appendChild(messageElement);
+
+            messageElement.addEventListener('animationend', () => {
+                messageElement.remove();
+            });
+        }
+
+        function createSnow() {
+            const snowflake = document.createElement('div');
+            const size = Math.random() * 5 + 5; // Random size between 5px and 10px
+            const posX = Math.random() * window.innerWidth; // Random horizontal position
+
+            snowflake.classList.add('snowflake');
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${posX}px`;
+            snowflake.style.animationDuration = `${Math.random() * 6 + 4}s`; // Random duration between 4s and 10s
+
+            document.body.appendChild(snowflake);
+
+            snowflake.addEventListener('animationend', () => {
+                snowflake.remove();
+            });
+        }
+
+        setInterval(createSnow, 500);
+    </script>
+</body>
+</html>
